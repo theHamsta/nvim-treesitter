@@ -17,6 +17,7 @@ local function node_start_to_vim(node)
   if not node then return end
 
   local row, col = node:start()
+  api.nvim_exec('normal! m`', false)
   local exec_command = string.format('call cursor(%d, %d)', row+1, col+1)
   api.nvim_exec(exec_command, false)
 end
