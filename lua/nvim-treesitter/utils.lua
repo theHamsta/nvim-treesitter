@@ -123,6 +123,120 @@ function M.get_next_node(node, allow_switch_parents, allow_next_parent)
   return destination_node
 end
 
+function M.node_to_lsp_range(node)
+  local start_line, start_col, end_line, end_col = node:range()
+  local rtn = {}
+  rtn.start = { line = start_line, character = start_col }
+  rtn['end'] = { line = end_line, character = end_col }
+  return rtn
+end
+
+function M.node_to_start_pos(node)
+  local line, col = unpack(node:start())
+  return { line = line, character = col }
+end
+
+function M.node_to_end_pos(node)
+  local line, col = unpack(node:end_())
+  return { line = line, character = col }
+end
+
+function M.replace_node(buf, source, destination)
+  local replacement_lines = M.get_node_text(source)
+  return M.replace_node_text(buf, destination, replacement_lines)
+end
+
+function M.range_lines(lsp_range)
+  return lsp_range['end'].line - lsp_range['start'].line
+end
+
+--- Replace text at range and return new range (LSP range)
+-- @param buf         buffer number
+-- @param node        node to replace
+-- @param new lines   new lines to use
+function M.replace_range_text(buf, lsp_range, replacement_lines)
+  -- apply_text_edits splits at '\n'
+  local new_text = table.concat(replacement_lines, '\n')
+
+  local text_edit = { range = lsp_range, newText = new_text }
+  vim.lsp.util.apply_text_edits({text_edit}, buf)
+
+  local range = text_edit.range
+
+  local end_char = #(replacement_lines[#replacement_lines])
+  if #replacement_lines == 1 then
+    end_char = end_char + range.start.character
+  end
+
+  range['end'] = { line = range.start.line + #replacement_lines - 1,
+                   character = end_char }
+  return range
+end
+
+--- Replace node text and return new range (LSP range)
+-- @param buf         buffer number
+-- @param node        node to replace
+-- @param new lines   new lines to use
+function M.replace_node_text(buf, node, replacement_lines)
+  return M.replace_range_text(buf, M.node_to_lsp_range(node), replacement_lines)
+end
+
+
+--- Swaps the contents of two nodes returning new ranges (LSP ranges)
+-- @param buf                       buffer number
+-- @param source                    first node
+-- @param destination               second node
+function M.swap_nodes(buf, source, destination)
+    local _, _, dst_start = destination:start()
+    local _, _, dst_end = destination:end_()
+    local _, _, src_start = source:start()
+    local _, _, src_end = source:end_()
+
+    if dst_start <= src_start and dst_end >= src_end then
+        local src_range = M.replace_node(buf, source, destination)
+        return src_range
+    end
+
+    local source_text = M.get_node_text(source)
+    local destination_text = M.get_node_text(destination)
+
+    local src_range, dst_range
+
+    if dst_end <= src_start then
+       src_range = M.node_to_lsp_range(source)
+       local new_src_range = M.replace_node_text(buf, source, destination_text)
+       dst_range = M.replace_node_text(buf, destination, source_text)
+
+       -- Correct range of first change
+       src_range.start.line = src_range['end'].line - (#destination_text - 1) -- Total end stays the same
+       src_range.start.character = new_src_range.start.character
+       src_range.start.character = new_src_range.start.character
+       if dst_range['end'].line == src_range.start.line then
+          src_range.start.character = src_range.start.character + #(source_text[#source_text]) - #(destination_text[#destination_text])
+       else
+       end
+       if dst_range['end'].line == dst_range['end'].line then
+          src_range['end'].character = src_range['end'].character + #(source_text[#source_text]) - #(destination_text[#destination_text])
+      end
+    elseif src_end <= dst_start then
+       dst_range = M.node_to_lsp_range(destination)
+       local new_dst_range = M.replace_node_text(buf, destination, source_text)
+       src_range = M.replace_node_text(buf, source, destination_text)
+
+       -- Correct range of first change
+       dst_range.start.line = dst_range['end'].line - (#source_text - 1) -- Total end stays the same
+       dst_range.start.character = new_dst_range.start.character
+       dst_range.start.character = new_dst_range.start.character
+       if src_range['end'].line == dst_range.start.line then
+          dst_range.start.character = new_dst_range.start.character + #(destination_text[#destination_text]) - #(source_text[#source_text])
+      end
+       if src_range['end'].line == dst_range['end'].line then
+          dst_range['end'].character = new_dst_range['end'].character + #(destination_text[#destination_text]) - #(source_text[#source_text])
+      end
+    end
+    return src_range, dst_range
+end
+
 --- Get previous node with same parent
 -- @param node                     node
 -- @param allow_switch_parents     allow switching parents if first node
