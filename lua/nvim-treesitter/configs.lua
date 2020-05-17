@@ -109,7 +109,19 @@ local builtin_modules = {
       swap_next = {},
       swap_previous = {},
     },
-  }
+  },
+  node_movement = {
+    enable = true,
+    highlight_current_node = true,
+    disable = {},
+    is_supported = function() return true end,
+    keymaps = {
+      move_up = "<a-k>",
+      move_down = "<a-j>",
+      move_left = "<a-h>",
+      move_right = "<a-l>",
+    },
+  },
 }
 
 local attached_buffers_by_module = caching.create_buffer_cache()
