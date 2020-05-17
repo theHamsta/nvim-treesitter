@@ -218,7 +218,7 @@ local config = {
     },
     node_movement = {
       enable = true,
-      highlight_current_node = true,
+      highlight_current_node = false,
       disable = {},
       is_supported = function() return true end,
       keymaps = {
