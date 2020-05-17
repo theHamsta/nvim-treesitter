@@ -216,6 +216,18 @@ local config = {
         return queries.get_query(ft, 'highlights') ~= nil
       end
     },
+    node_movement = {
+      enable = true,
+      highlight_current_node = true,
+      disable = {},
+      is_supported = function() return true end,
+      keymaps = {
+        move_up = "<a-k>",
+        move_down = "<a-j>",
+        move_left = "<a-h>",
+        move_right = "<a-l>",
+      },
+    },
     incremental_selection = {
       enable = false,
       disable = {},
