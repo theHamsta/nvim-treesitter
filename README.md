@@ -120,6 +120,34 @@ require'nvim-treesitter.configs'.setup {
         list_definitions = "gnD"          -- mapping to list all definitions in current file
       }
     },
+    textobjects = { -- syntax-aware textobjects
+	enable = true,
+	disable = {},
+	keymaps = {
+	    ["iL"] = { -- you can define your own textobjects directly here
+		python = "(function_definition) @function",
+		cpp = "(function_definition) @function",
+		c = "(function_definition) @function",
+		java = "(method_declaration) @function"
+	    },
+	    -- or you use the queries from supported languages with textobjects.scm
+	    ["af"] = "@function.outer",
+	    ["if"] = "@function.inner",
+	    ["aC"] = "@class.outer",
+	    ["iC"] = "@class.inner",
+	    ["ac"] = "@conditional.outer",
+	    ["ic"] = "@conditional.inner",
+	    ["ab"] = "@block.outer",
+	    ["ib"] = "@block.inner",
+	    ["al"] = "@loop.outer",
+	    ["il"] = "@loop.inner",
+	    ["is"] = "@statement.inner",
+	    ["as"] = "@statement.outer",
+	    ["ad"] = "@comment.outer",
+	    ["am"] = "@call.outer",
+	    ["im"] = "@call.inner"
+	}
+    },
     ensure_installed = 'all' -- one of 'all', 'language', or a list of languages
 }
 EOF
@@ -158,6 +186,7 @@ The roadmap and all features of this plugin are open to change, and any suggesti
 - `refactor.navigation`: Syntax based definition listing and navigation.
   * List all definitions
   * Go to definition
+- `textobjects`: Vim textobjects defined by treesitter queries
 
 ## Utils
 
@@ -221,3 +250,4 @@ If you do, it's highly possible that this is the cause of the problem.
 If everything is okay, then it might be an actual error.
 
 In both cases, feel free to open an issue here.
+
