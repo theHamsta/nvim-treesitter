@@ -4,32 +4,44 @@
   ;body:  (compound_statement
                           ;("{" (_)* @function.inner "}"))?) @function.outer
 
-(function_definition
+((function_definition
   body:  (compound_statement) @function.inner) @function.outer
+ (strip! @function.inner "(^\{?\s*)|(\s*\}?$)" "\s*"))
 
-(struct_specifier
+((struct_specifier
   body: (_) @class.inner) @class.outer
+ (strip! @class.inner "(^\{?\s*)|(\s*\}?$)" "\s*"))
 
 ; conditional
-(if_statement
+((if_statement
   consequence: (_)? @conditional.inner
   alternative: (_)? @conditional.inner
   ) @conditional.outer
+ (strip! @conditional.inner "(^\{?\s*)|(\s*\}?$)" "\s*"))
 
-(if_statement
+((if_statement
   condition: (_) @conditional.inner)
+ (strip! @conditional.inner "(^\{?\s*)|(\s*\}?$)" "\s*"))
 
 ; loops
-(for_statement 
+((for_statement 
   (_)? @loop.inner) @loop.outer
-(while_statement
+ (strip! @loop.inner "(^\{?\s*)|(\s*\}?$)" "\s*"))
+((while_statement
   (_)? @loop.inner) @loop.outer
-(do_statement
+ (strip! @loop.inner "(^\{?\s*)|(\s*\}?$)" "\s*"))
+((do_statement
   (_)? @loop.inner) @loop.outer
+ (strip! @loop.inner "(^\{?\s*)|(\s*\}?$)" "\s*"))
 
 
 (compound_statement) @block.outer
+((compound_statement) @block.inner
+  (strip! @block.inner "(^\{?\s*)|(\s*\}?$)" "\s*"))
 (comment) @comment.outer
+
+((comment) @comment.inner
+  (strip! @comment.inner "(^((//)|(/\*))\s*)|(\s*\*/$)" "\s*"))
 
 (call_expression) @call.outer
 (call_expression (_) @call.inner)

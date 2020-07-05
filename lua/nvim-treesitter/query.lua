@@ -1,5 +1,6 @@
 local api = vim.api
 local ts = vim.treesitter
+local utils = require 'nvim-treesitter.utils'
 
 local M = {}
 
@@ -72,6 +73,75 @@ function M.get_query(lang, query_name)
   end
 end
 
+ --This function is copied from Neovims treesitter.lua to enforece same behavior
+local magic_prefixes = {['\\v']=true, ['\\m']=true, ['\\M']=true, ['\\V']=true}
+local function check_magic(str)
+  if string.len(str) < 2 or magic_prefixes[string.sub(str,1,2)] then
+    return str
+  end
+  return '\\v'..str
+end
+
+local function compile_regex(regex)
+  if not M._regex_cache then
+    M._regex_cache = {}
+  end
+  if not M._regex_cache[regex] then
+    local re = vim.regex(check_magic(regex))
+    M._regex_cache[regex] = re
+    return re
+  else
+    return M._regex_cache[regex]
+  end
+end
+
+local function strip_beginning(lines, regex, continuation_line_regex)
+  local current_col = 0
+  local current_line = 0
+
+  local re_first = compile_regex('^('..regex..')')
+  local re_next = compile_regex('^('..continuation_line_regex..')')
+  for linenr, line in ipairs(lines) do
+    current_line = linenr
+    local re = (linenr == 1 and re_first or re_next)
+    local match_start, match_end = re:match_str(line)
+    if match_start ~= 0 then
+      break
+    else
+      current_col = match_end
+    end
+    if match_end ~= vim.str_byteindex(line, #line) then
+      break
+    end
+    current_line = current_line + 1
+  end
+  return current_line - 1, current_col
+end
+
+local function strip_end(lines, regex, continuation_line_regex)
+  local current_col = 0
+  local line_diff = 0
+  local re_last = compile_regex('('..regex..')$')
+  local re_before = compile_regex('('..continuation_line_regex..')$')
+  for linenr = #lines, 1, -1 do
+    local line = lines[linenr]
+    line_diff = #lines - linenr
+    local re = linenr == #lines and re_last or re_before
+    local match_start, match_end = re:match_str(line)
+
+    if match_end ~= vim.str_byteindex(line, #line) then
+      break
+    else
+      current_col = match_start
+    end
+    if match_start ~= 0 then
+      break
+    end
+    line_diff = line_diff + 1
+  end
+  return line_diff, current_col
+end
+
 function M.iter_prepared_matches(query, qnode, bufnr, start_row, end_row)
   -- A function that splits  a string on '.'
   local function split(string)
@@ -120,6 +190,45 @@ function M.iter_prepared_matches(query, qnode, bufnr, start_row, end_row)
         for _, pred in pairs(preds) do
           if pred[1] == "set!" and type(pred[2]) == "string" then
             insert_to_path(prepared_match, split(pred[2]), pred[3])
+          end
+          if pred[1] == "strip!" and #pred == 4 then
+            local capture_name = query.captures[pred[2]]
+            local regex = pred[3]
+            local continuation_line_regex = pred[4]
+
+            local function process_range()
+              local node = utils.get_at_path(prepared_match, capture_name..'.node')
+              local ts_utils = require 'nvim-treesitter.ts_utils'
+              local node_lines = ts_utils.get_node_text(node, bufnr)
+              local start_line, start_col, end_line, _ = node:range()
+
+              local strip_line, strip_col = strip_beginning(node_lines, regex, continuation_line_regex)
+              strip_beginning(node_lines, regex, continuation_line_regex)
+              start_line = start_line + strip_line
+              if strip_line == 0 then
+                start_col = start_col + strip_col
+              else
+                start_col = strip_col
+              end
+              local strip_line, strip_col = strip_end(node_lines, regex, continuation_line_regex)
+              end_line = end_line - strip_line
+              local end_col
+              if strip_line == 0 then
+                end_col = strip_col
+              else
+                end_col = strip_col + (end_line == start_line and start_col or 0)
+              end
+
+              end_line = math.max(end_line, start_line)
+              if end_line == start_line then
+                end_col = math.max(end_col, start_col)
+              end
+              return {start_line, start_col, end_line, end_col}
+            end
+
+            insert_to_path(prepared_match,
+                           split(capture_name..'.process_range'),
+                           process_range)
           end
         end
       end
