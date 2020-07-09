@@ -3,11 +3,7 @@ local parsers = require'nvim-treesitter.parsers'
 local ts_utils = require'nvim-treesitter.ts_utils'
 local M = {}
 
-local hl_namespace
-
-if not hl_namespace then
-  hl_namespace = api.nvim_create_namespace("nvim-treesitter.node_movement")
-end
+local hl_namespace = api.nvim_create_namespace("nvim-treesitter.node_movement")
 
 
 M.NodeMovementKind = {
