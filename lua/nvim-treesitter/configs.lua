@@ -42,6 +42,7 @@ local builtin_modules = {
     highlight_current_scope = {
       module_path = 'nvim-treesitter.refactor.highlight_current_scope',
       enable = false,
+      inverse_highlighting = false,
       disable = {},
       is_supported = queries.has_locals,
     },

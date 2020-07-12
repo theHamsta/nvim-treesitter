@@ -318,6 +318,14 @@ function M.highlight_node(node, buf, hl_namespace, hl_group)
   M.highlight_range({node:range()}, buf, hl_namespace, hl_group)
 end
 
+function M.highlight_all_but_node(node, buf, hl_namespace, hl_group)
+  local start_row, start_col, end_row, end_col = node:range()
+  local lines = api.nvim_buf_get_lines(buf, 0, -1, false)
+
+  vim.highlight.range(buf, hl_namespace, hl_group, {0, 0}, {start_row, start_col})
+  vim.highlight.range(buf, hl_namespace, hl_group, {end_row, end_col}, {#lines - 1, #lines[#lines] - 1})
+end
+
 function M.highlight_range(range, buf, hl_namespace, hl_group)
   local start_row, start_col, end_row, end_col = unpack(range)
   vim.highlight.range(buf, hl_namespace, hl_group, {start_row, start_col}, {end_row, end_col})

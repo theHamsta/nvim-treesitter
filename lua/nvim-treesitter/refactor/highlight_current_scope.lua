@@ -1,10 +1,12 @@
 -- This module highlights the current scope of at the cursor position
 
 local ts_utils = require'nvim-treesitter.ts_utils'
+local configs = require'nvim-treesitter.configs'
 local api = vim.api
 local cmd = api.nvim_command
 
 local M = {}
+local inverse_highlighting
 
 local current_scope_namespace = api.nvim_create_namespace('nvim-treesitter-current-scope')
 
@@ -17,7 +19,11 @@ function M.highlight_current_scope(bufnr)
   local start_line = current_scope:start()
 
   if current_scope and start_line ~= 0 then
-    ts_utils.highlight_node(current_scope, bufnr, current_scope_namespace, 'TSCurrentScope')
+    if inverse_highlighting then
+      ts_utils.highlight_all_but_node(current_scope, bufnr, current_scope_namespace, 'TSNotCurrentScope')
+    else
+      ts_utils.highlight_node(current_scope, bufnr, current_scope_namespace, 'TSCurrentScope')
+    end
   end
 end
 
@@ -27,6 +33,7 @@ end
 
 function M.attach(bufnr)
   local bufnr = bufnr or api.nvim_get_current_buf()
+  inverse_highlighting = configs.get_module('refactor.highlight_current_scope').inverse_highlighting
 
   cmd(string.format('augroup NvimTreesitterCurrentScope_%d', bufnr))
   cmd 'au!'
