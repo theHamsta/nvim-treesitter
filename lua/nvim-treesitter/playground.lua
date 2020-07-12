@@ -1,18 +1,14 @@
-local hl_namespace
 local api = vim.api
 local ts = vim.treesitter
 local parsers = require "nvim-treesitter.parsers"
 local queries = require "nvim-treesitter.query"
 
-if not hl_namespace then
-    hl_namespace = api.nvim_create_namespace("nvim-treesitter.playground")
-end
+local hl_namespace = api.nvim_create_namespace("nvim-treesitter.playground")
 
-M = {}
+local M = {}
 
 M.highlights = {}
-local count
-count = count or 1
+local count =  1
 
 local function new_highlight()
     count = count + 1
@@ -51,8 +47,10 @@ end
 function M.play_with(query_buf)
     query_buf = query_buf or api.nvim_get_current_buf()
     M.update_highlights(query_buf)
+  -- luacheck: push ignore 631
     --vim.cmd('autocmd TextChanged <buffer='..query_buf..'> :lua require"nvim-treesitter.playground".update_highlights('..query_buf..')')
     --vim.cmd('autocmd TextChangedI <buffer='..query_buf..'> :lua require"nvim-treesitter.playground".update_highlights('..query_buf..')')
+  -- luacheck: pop
     vim.cmd('autocmd TextChanged  :lua require"nvim-treesitter.playground".update_highlights('..query_buf..')')
     vim.cmd('autocmd TextChangedI :lua require"nvim-treesitter.playground".update_highlights('..query_buf..')')
 end
