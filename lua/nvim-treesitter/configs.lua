@@ -111,6 +111,7 @@ local builtin_modules = {
     },
   },
   node_movement = {
+    module_path = 'nvim-treesitter.node_movement',
     enable = true,
     highlight_current_node = true,
     disable = {},
