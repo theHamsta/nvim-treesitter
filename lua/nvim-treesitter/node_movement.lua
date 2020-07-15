@@ -42,6 +42,7 @@ M.do_node_movement = function(kind)
   local buf, line, col = unpack(vim.fn.getpos("."))
   M.clear_hightlights(buf)
 
+  vim.cmd("normal! m'")
   local current_node = M.current_node[buf]
 
   if current_node then
