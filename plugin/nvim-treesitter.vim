@@ -66,4 +66,5 @@ highlight default TSEmphasis term=italic cterm=italic gui=italic
 highlight default TSUnderline term=underline cterm=underline gui=underline
 highlight default link TSTitle Title
 highlight default link TSLiteral String
-highlight default link TSURI Underlined
+highlight default link TSURI Identifier
+highlight default link NvimTreesitterCurrentNode CursorLine

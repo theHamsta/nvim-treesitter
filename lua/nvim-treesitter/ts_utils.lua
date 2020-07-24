@@ -199,6 +199,35 @@ function M.node_to_lsp_range(node)
   return rtn
 end
 
+function M.swap_nodes(node_or_range1, node_or_range2, bufnr, cursor_to_second)
+  if not node_or_range1 or not node_or_range2 then return end
+  local range1 = M.node_to_lsp_range(node_or_range1)
+  local range2 = M.node_to_lsp_range(node_or_range2)
+
+  local text1 = M.get_node_text(node_or_range1)
+  local text2 = M.get_node_text(node_or_range2)
+
+  local edit1 = { range = range1, newText = table.concat(text2, '\n') }
+  local edit2 = { range = range2, newText = table.concat(text1, '\n') }
+  vim.lsp.util.apply_text_edits({edit1, edit2}, bufnr)
+
+  if cursor_to_second then
+    local char_delta = 0
+    local line_delta = 0
+    if range1["end"].line == range2.start.line and range1["end"].character < range2.start.character then
+      char_delta = #(text2[#text2]) - #(text1[#text1])
+    end
+    if range1["end"].line < range2.start.line
+       or (range1["end"].line == range2.start.line and range1["end"].character < range2.start.character) then
+      line_delta = #text2 - #text1
+    end
+
+    api.nvim_win_set_cursor(api.nvim_get_current_win(),
+                            {range2.start.line + 1 + line_delta,
+                             range2.start.character + char_delta})
+  end
+end
+
 --- Memoizes a function based on the buffer tick of the provided bufnr.
 -- The cache entry is cleared when the buffer is detached to avoid memory leaks.
 -- @param fn: the fn to memoize

@@ -38,7 +38,7 @@ M.cursor_moved = function()
   end
 end
 
-M.do_node_movement = function(kind)
+M.do_node_movement = function(kind, swap_nodes)
   local buf, line, col = unpack(vim.fn.getpos("."))
   M.clear_hightlights(buf)
 
@@ -71,23 +71,24 @@ M.do_node_movement = function(kind)
         end
       end
     elseif kind == M.NodeMovementKind.left then
-      destination_node = ts_utils.get_previous_node(current_node, true, true)
+      destination_node = ts_utils.get_previous_node(current_node, false, false)
     elseif kind == M.NodeMovementKind.right then
-      destination_node = ts_utils.get_next_node(current_node, true, true)
+      destination_node = ts_utils.get_next_node(current_node, false, false)
     end
-    M.current_node[buf] = destination_node or current_node
   end
+
 
   if destination_node then
-    node_start_to_vim(destination_node)
+    if swap_nodes then
+      ts_utils.swap_nodes(current_node, destination_node, buf, 'move cursor')
+    else
+      node_start_to_vim(destination_node)
+    end
   end
+  M.current_node[buf] = destination_node or current_node
 
   if M.current_node[buf] and require'nvim-treesitter.configs'.get_module('node_movement').highlight_current_node then
-    local start_row, start_col, end_row, end_col = M.current_node[buf]:range()
-    for i = start_row, end_row,1 do
-      api.nvim_buf_add_highlight(buf, hl_namespace, 'NvimTreesitterCurrentNode', i,
-                         (start_row==i and start_col or 0), (end_row==i and end_col or -1))
-    end
+    ts_utils.highlight_node(M.current_node[buf], buf, hl_namespace, 'NvimTreesitterCurrentNode')
   end
 end
 
@@ -95,6 +96,11 @@ M.move_up = function() M.do_node_movement(M.NodeMovementKind.up) end
 M.move_down = function() M.do_node_movement(M.NodeMovementKind.down) end
 M.move_left = function() M.do_node_movement(M.NodeMovementKind.left) end
 M.move_right = function() M.do_node_movement(M.NodeMovementKind.right) end
+
+M.swap_up = function() M.do_node_movement(M.NodeMovementKind.up, 'swap') end
+M.swap_down = function() M.do_node_movement(M.NodeMovementKind.down, 'swap') end
+M.swap_left = function() M.do_node_movement(M.NodeMovementKind.left, 'swap') end
+M.swap_right = function() M.do_node_movement(M.NodeMovementKind.right, 'swap') end
 
 M.select_current_node = function()
   local buf, line, col = unpack(vim.fn.getpos("."))
