@@ -81,6 +81,9 @@ M.do_node_movement = function(kind, swap_nodes)
   if destination_node then
     if swap_nodes then
       ts_utils.swap_nodes(current_node, destination_node, buf, 'move cursor')
+      -- invalidate nodes after edit
+      destination_node = nil
+      current_node = nil
     else
       node_start_to_vim(destination_node)
     end
