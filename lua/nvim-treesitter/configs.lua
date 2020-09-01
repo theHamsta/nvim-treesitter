@@ -308,8 +308,11 @@ function M.setup(user_data)
 
   recurse_modules(function(_, _, new_path)
     local data = utils.get_at_path(config.modules, new_path)
+    local disable = {}
+    vim.list_extend(disable, user_data.disable)
+    vim.list_extend(disable, data.disable)
     if data.enable then
-      enable_all(new_path, nil, data.disable)
+      enable_all(new_path, nil, disable)
     end
   end, config.modules)
 end
