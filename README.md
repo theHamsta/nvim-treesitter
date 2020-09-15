@@ -366,6 +366,7 @@ List of currently supported languages:
 - [x] [bash](https://github.com/tree-sitter/tree-sitter-bash) (maintained by @TravonteD)
 - [x] [c](https://github.com/tree-sitter/tree-sitter-c) (maintained by @vigoux)
 - [x] [c_sharp](https://github.com/tree-sitter/tree-sitter-c-sharp) (maintained by @svermeulen)
+- [ ] [clojure](https://github.com/oakmac/tree-sitter-clojure)
 - [x] [cpp](https://github.com/tree-sitter/tree-sitter-cpp) (maintained by @theHamsta)
 - [x] [css](https://github.com/tree-sitter/tree-sitter-css) (maintained by @TravonteD)
 - [x] [dart](https://github.com/UserNobody14/tree-sitter-dart) (maintained by @Akin909)
