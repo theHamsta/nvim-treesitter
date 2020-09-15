@@ -251,6 +251,13 @@ list.fennel = {
   maintainers = {'@TravonteD'},
 }
 
+list.clojure = {
+    install_info = {
+        url = "https://github.com/oakmac/tree-sitter-clojure",
+        files = {"src/parser.c"},
+    }
+}
+
 -- Parsers for injections
 list.regex = {
   install_info = {
