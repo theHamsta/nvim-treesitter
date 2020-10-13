@@ -17,7 +17,7 @@
                 (identifier) @parameter))
 ; int foo = 0
 (optional_parameter_declaration
-    declarator: (identifier) @parameter)
+    declarator: (_) @parameter)
 
 ;(field_expression) @parameter ;; How to highlight this?
 (template_function
