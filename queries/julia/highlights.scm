@@ -19,11 +19,17 @@
    (identifier) @function)
 (call_expression
    (field_expression (identifier) @method))
+(broadcast_call_expression
+   (identifier) @function)
+(broadcast_call_expression
+   (field_expression (identifier) @method))
 (parameter_list
     (identifier) @parameter)
 (typed_parameter
     (identifier) @parameter
     (identifier) @type)
+(function_expression
+    . (identifier) @parameter)
 (argument_list
  (typed_expression
   (identifier) @parameter
@@ -47,14 +53,14 @@
   (number)
   (identifier) @constant.builtin)
 
-[
-    (power_operator)
-    (times_operator)
-    (plus_operator)
-    (arrow_operator)
-    (comparison_operator)
-    (assign_operator)
-] @operator 
+;[;
+    ;(power_operator);
+    ;(times_operator);
+    ;(plus_operator);
+    ;(arrow_operator);
+    ;(comparison_operator);
+    ;(assign_operator);
+;] @operator ;
 
 "end" @keyword
 
@@ -77,6 +83,8 @@
   "macro"
 ] @keyword
 
+(compound_expression
+  ["begin" "end"] @keyword)
 (try_statement
   ["try" "end" ] @exception)
 (finally_clause
@@ -85,10 +93,15 @@
   ["quote" "end"] @keyword)
 (let_statement
   ["let" "end"] @keyword)
+(for_statement
+  ["for" "end"] @repeat)
+(for_binding
+ "in" @repeat)
+
 
 (export_statement
   ["export"] @include)
-
+["using" "module"] @include
 
 (((identifier) @constant.builtin) (match? @constant.builtin "(nothing|Inf|NaN)"))
 (((identifier) @boolean) (eq? @boolean "true"))
