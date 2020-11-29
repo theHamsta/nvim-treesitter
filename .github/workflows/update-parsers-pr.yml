@@ -1,15 +1,19 @@
 name: Make Parser Update PR
 
 on: push
+#on:
+  #push:
+    #branches:
+      #- master
 
 jobs:
   update-parsers:
     name: Update parsers
     runs-on: ubuntu-latest
-    #if: github.ref == 'master'
     steps:
-      - uses: actions/checkout@v1
-
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: Prepare
         run: |
           sudo apt-get update
@@ -26,3 +30,7 @@ jobs:
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
+        with:
+          commit-message: Update lockfile.json
+          title: Update lockfile.json
+          branch: update-lockfile
