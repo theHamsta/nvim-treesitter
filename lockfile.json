@@ -30,7 +30,7 @@
     "revision": "dadfd9c9aab2630632e61cfce645c13c35aa092f"
   },
   "graphql": {
-    "revision": "6127bcbdc717c8cf8287db767f68f017db6cd320"
+    "revision": "c5cd49b95c5c121340f46a7b1a65ad44bc8576e6"
   },
   "haskell": {
     "revision": "2a0aa1cb5f1b787a4056a29fa0791e87846e33fb"
@@ -42,7 +42,7 @@
     "revision": "f7b62ac33d63bea56ce202ace107aaa4285e50af"
   },
   "javascript": {
-    "revision": "852f11b394804ac2a8986f8bcaafe77753635667"
+    "revision": "6c40521d8cbc03bed3805747867088b947b61159"
   },
   "jsdoc": {
     "revision": "77e7785739ad3e90c3de8ed5a55418a5fd2b8225"
@@ -99,16 +99,16 @@
     "revision": "a22fa5e19bae50098e2252ea96cba3aba43f4c58"
   },
   "teal": {
-    "revision": "024fb0da8a4e277ad48246f9fa47098e0c755155"
+    "revision": "59f90be8d211f9abd63ee68ca1ff65096d7d0b2a"
   },
   "toml": {
     "revision": "02e774c911d123ea3fbe5273cf9d987fa88dd3fb"
   },
   "tsx": {
-    "revision": "73afadbd117a8e8551758af9c3a522ef46452119"
+    "revision": "d7965b8e09d9cf6146f50d0881f4fb2a56517850"
   },
   "typescript": {
-    "revision": "73afadbd117a8e8551758af9c3a522ef46452119"
+    "revision": "d7965b8e09d9cf6146f50d0881f4fb2a56517850"
   },
   "verilog": {
     "revision": "ad551aae2649da56582bc0557478a7dc979c0be3"
