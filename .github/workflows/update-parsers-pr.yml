@@ -16,6 +16,8 @@ jobs:
 
       - name: Prepare
         run: |
+          git checkout master
+          git pull --unshallow
           sudo apt-get update
           sudo add-apt-repository universe
           wget https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64
