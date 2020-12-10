@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - foo
 
 jobs:
   update-parsers:
