@@ -9,6 +9,9 @@ jobs:
   update-parsers:
     name: Update parsers
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        check-queries: [0, 1]
     steps:
       - uses: actions/checkout@v2
         with:
@@ -28,7 +31,7 @@ jobs:
 
       - name: Update parsers
         env:
-          SKIP_LOCKFILE_UPDATE_FOR_LANGS: tsx,typescript,javascript # HACK: remove as soon tsx,typescript get updated
+          LOCKFILE_ONLY_UPDATE_WORKING_LANGS: ${{ matrix.check-queries }}
         run: |
           ./nvim.appimage --headless -c "luafile ./scripts/write-lockfile.lua" -c "q"
           # Pretty print
@@ -39,6 +42,6 @@ jobs:
         uses: peter-evans/create-pull-request@v3
         with:
           commit-message: Update lockfile.json
-          title: Update lockfile.json
-          branch: update-lockfile-pr
+          title: Update lockfile.json ${{ matrix.check-queries }}
+          branch: update-lockfile-pr-${{ matrix.check-queries }}
           base: ${{ github.head_ref }}
