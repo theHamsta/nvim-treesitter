@@ -101,7 +101,7 @@
 
 (export_statement
   ["export"] @include)
-["using" "module"] @include
+["using" "module" "import"] @include
 
 (((identifier) @constant.builtin) (match? @constant.builtin "^(nothing|Inf|NaN)$"))
 (((identifier) @boolean) (eq? @boolean "true"))
