@@ -103,7 +103,7 @@
   ["export"] @include)
 ["using" "module"] @include
 
-(((identifier) @constant.builtin) (match? @constant.builtin "(nothing|Inf|NaN)"))
+(((identifier) @constant.builtin) (match? @constant.builtin "^(nothing|Inf|NaN)$"))
 (((identifier) @boolean) (eq? @boolean "true"))
 (((identifier) @boolean) (eq? @boolean "false"))
 
