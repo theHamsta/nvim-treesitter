@@ -10,40 +10,39 @@
 
 (macro_identifier) @function.macro
 (macro_identifier (identifier) @function.macro) ; for any one using the variable highlight
-(macro_definition 
+(macro_definition
   name: (identifier) @function.macro
   ["macro" "end" @keyword])
 
 (function_definition
-   name: (identifier) @function)
+  name: (identifier) @function)
 (call_expression
-   (identifier) @function)
+  (identifier) @function)
 (call_expression
-   (field_expression (identifier) @method))
+  (field_expression (identifier) @method))
 (broadcast_call_expression
-   (identifier) @function)
+  (identifier) @function)
 (broadcast_call_expression
-   (field_expression (identifier) @method))
+  (field_expression (identifier) @method))
 (parameter_list
-    (identifier) @parameter)
+  (identifier) @parameter)
 (typed_parameter
-    (identifier) @parameter
-    (identifier) @type)
-(function_expression
-    . (identifier) @parameter)
-(argument_list
- (typed_expression
   (identifier) @parameter
-  (identifier) @type))
+  (identifier) @type)
+(function_expression
+  . (identifier) @parameter)
+(argument_list
+  (typed_expression
+    (identifier) @parameter
+    (identifier) @type))
 
 (type_argument_list
- (identifier) @type)
+  (identifier) @type)
 ((identifier) @type
- (match? @type "^[A-Z]"))
+  (match? @type "^[A-Z]"))
 (typed_expression
- (identifier) @variable
- (identifier) @type)
-
+  (identifier) @variable
+  (identifier) @type)
 
 (field_expression
   (identifier)
@@ -66,13 +65,13 @@
 "end" @keyword
 
 (if_statement
- ["if" "end"] @conditional)
+  ["if" "end"] @conditional)
 (elseif_clause
- ["elseif"] @conditional)
+  ["elseif"] @conditional)
 (else_clause
- ["else"] @conditional)
+  ["else"] @conditional)
 (ternary_expression
- ["?" ":"] @operator)
+  ["?" ":"] @operator)
 
 (function_definition ["function" "end"] @keyword.function)
 
@@ -97,15 +96,18 @@
 (for_statement
   ["for" "end"] @repeat)
 (for_binding
- "in" @repeat)
-
+  "in" @repeat)
 
 (export_statement
   ["export"] @include)
-["using" "module" "import"] @include
+
+[
+  "using"
+  "module"
+  "import"
+] @include
 
 (((identifier) @constant.builtin) (match? @constant.builtin "^(nothing|Inf|NaN)$"))
 (((identifier) @boolean) (eq? @boolean "true"))
 (((identifier) @boolean) (eq? @boolean "false"))
-
 
