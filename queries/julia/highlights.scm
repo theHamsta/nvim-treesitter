@@ -9,6 +9,7 @@
   prefix: (identifier) @constant.builtin)
 
 (macro_identifier) @function.macro
+(macro_identifier (identifier) @function.macro) ; for any one using the variable highlight
 (macro_definition 
   name: (identifier) @function.macro
   ["macro" "end" @keyword])
