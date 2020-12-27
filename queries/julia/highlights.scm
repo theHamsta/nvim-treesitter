@@ -53,8 +53,12 @@
 
 (number) @number
 (range_expression
-  (identifier) @number
-    (match? @number "end"))
+    (identifier) @number
+      (match? @number "end"))
+(range_expression
+  (_
+    (identifier) @number
+      (match? @number "end")))
 (coefficient_expression
   (number)
   (identifier) @constant.builtin)
