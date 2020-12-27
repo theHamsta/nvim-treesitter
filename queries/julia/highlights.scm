@@ -26,6 +26,9 @@
   (field_expression (identifier) @method))
 (parameter_list
   (identifier) @parameter)
+(parameter_list
+  (optional_parameter .
+    (identifier) @parameter))
 (typed_parameter
   (identifier) @parameter
   (identifier) @type)
