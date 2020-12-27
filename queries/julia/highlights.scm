@@ -32,6 +32,9 @@
 (typed_parameter
   (identifier) @parameter
   (identifier) @type)
+(typed_parameter
+  (identifier) @parameter
+  (parameterized_identifier) @type)
 (function_expression
   . (identifier) @parameter)
 (argument_list
