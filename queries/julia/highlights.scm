@@ -105,6 +105,8 @@
   ["let" "end"] @keyword)
 (for_statement
   ["for" "end"] @repeat)
+(while_statement
+  ["while" "end"] @repeat)
 (for_binding
   "in" @repeat)
 
