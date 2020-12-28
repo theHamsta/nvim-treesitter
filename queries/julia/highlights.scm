@@ -1,8 +1,6 @@
 (identifier) @variable
-((identifier) @type
-  (match? @type "^[A-Z]"))
-((identifier) @variable ; exception: mark `A_foo` sort of identifiers as variables
-  (match? @type "^[A-Z]_"))
+((identifier) @type ; exception: mark `A_foo` sort of identifiers as variables
+  (match? @type "^[A-Z][^_]"))
 
 [
   (triple_string)
