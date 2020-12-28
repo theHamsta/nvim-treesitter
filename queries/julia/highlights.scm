@@ -1,7 +1,7 @@
 (identifier) @variable
 ((identifier) @type
   (match? @type "^[A-Z]"))
-((identifier) @variable
+((identifier) @variable ; exception: mark `A_foo` sort of identifiers as variables
   (match? @type "^[A-Z]_"))
 
 [
