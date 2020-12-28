@@ -112,6 +112,8 @@
   ["while" "end"] @repeat)
 (for_binding
   "in" @repeat)
+(for_clause
+  "for" @repeat)
 
 (export_statement
   ["export"] @include)
