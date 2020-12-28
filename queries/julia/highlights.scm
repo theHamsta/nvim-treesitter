@@ -1,4 +1,8 @@
 (identifier) @variable
+((identifier) @type
+  (match? @type "^[A-Z]"))
+((identifier) @variable
+  (match? @type "^[A-Z_]"))
 
 [
   (triple_string)
