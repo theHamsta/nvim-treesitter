@@ -115,6 +115,8 @@
   "in" @repeat)
 (for_clause
   "for" @repeat)
+(do_clause
+  ["do" "end"] @keyword)
 
 (export_statement
   ["export"] @include)
