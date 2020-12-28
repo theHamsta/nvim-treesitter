@@ -48,8 +48,7 @@
 
 (type_argument_list
   (identifier) @type)
-;((identifier) @type
-;  (match? @type "^[A-Z]"))
+(parameterized_identifier (_)) @type
 (typed_expression
   (identifier) @variable
   (identifier) @type)
