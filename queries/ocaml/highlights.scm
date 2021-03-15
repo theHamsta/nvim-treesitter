@@ -107,7 +107,7 @@
 ; Punctuation
 ;------------
 
-(attribute ["[@" "]"] @punctuation.special)
+;(attribute ["[@" "]"] @punctuation.special)
 (item_attribute ["[@@" "]"] @punctuation.special)
 (floating_attribute ["[@@@" "]"] @punctuation.special)
 (extension ["[%" "]"] @punctuation.special)
