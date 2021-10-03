@@ -65,10 +65,15 @@ jobs:
           name: parsers-${{ matrix.os }}-${{ matrix.cc }}-x86_64
           path: parser/*
 
+      - name: Prepare Release
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          zip parsers-${{ matrix.os }}-${{ matrix.cc }}-x86_64.zip parser
+
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
           name: parsers-${{ matrix.os }}-${{ matrix.cc }}-x86_64
           files: |
-            parser/*
+            parsers-${{ matrix.os }}-${{ matrix.cc }}-x86_64.zip
