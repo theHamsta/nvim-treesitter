@@ -67,7 +67,7 @@ jobs:
 
       - name: Release
         uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/') && matrix.os == 'ubuntu-latest' && matrix.cc == 'gcc'
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
             parser/*
