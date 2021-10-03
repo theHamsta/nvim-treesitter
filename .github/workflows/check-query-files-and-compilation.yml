@@ -65,3 +65,18 @@ jobs:
           name: parsers-${{ matrix.os }}-${{ matrix.cc }}-x86_64
           path: parser/*
 
+      - name: Create release
+        if: branch == "master" && matrix.os == "windows-latest" && matrix.cc == "cl"
+        uses: Roang-zero1/github-create-release-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create GitHub release
+        if: branch == "master" && matrix.os == "windows-latest" && matrix.cc == "cl"
+        uses: Roang-zero1/github-upload-release-artifacts-action@master
+        with:
+          args:
+          - parser
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
