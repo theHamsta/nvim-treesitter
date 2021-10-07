@@ -12,7 +12,7 @@
     "revision": "e348e8ec5efd3aac020020e4af53d2ff18f393a9"
   },
   "c_sharp": {
-    "revision": "52ad1d506debcd4623d641339f8f452e6ea8f10c"
+    "revision": "1b01d838cc2c0435eef59bc4ee9d0c77eea458d0"
   },
   "clojure": {
     "revision": "39bf0977d223879436c1425fe6bfeb3bcfd86f92"
@@ -35,6 +35,9 @@
   "cuda": {
     "revision": "0602f5b0337422a579edcfbbf24ea30f28f93383"
   },
+  "d": {
+    "revision": "c2fbf21bd3aa45495fe13247e040ad5815250032"
+  },
   "dart": {
     "revision": "6a25376685d1d47968c2cef06d4db8d84a70025e"
   },
@@ -45,10 +48,10 @@
     "revision": "f0b8e6748238ac0a6ba10e360db5b712039db895"
   },
   "dot": {
-    "revision": "d5842f7c1f5aca2ef9fdf43c2dd8c3bbd21f81d8"
+    "revision": "3a32e207e126a7f1cdd17de2473db1f03e6a3dac"
   },
   "elixir": {
-    "revision": "9cf8676eb6f1c3656d4393c8c457ec0b426f9d28"
+    "revision": "a5a3b0cc82a44933f921565f64df49a4366cfddb"
   },
   "elm": {
     "revision": "d29c06684fd4790ba0241e852eaa7d07b3cc4388"
@@ -69,13 +72,13 @@
     "revision": "59e7e41e186d3759592e9938291f69055200783f"
   },
   "glimmer": {
-    "revision": "a19d309a9d109951c64db27ea093ec2ae43670af"
+    "revision": "b72a29706f8f82d06475422d2f28f5a00ae861b5"
   },
   "glsl": {
     "revision": "88408ffc5e27abcffced7010fc77396ae3636d7e"
   },
   "go": {
-    "revision": "42b1e657c3a394c01df51dd3eadc8b214274a73c"
+    "revision": "7f6bfd0161b2fe97f03564edad3287ebea0494a3"
   },
   "godotResource": {
     "revision": "c611dd49e838efe25567dece14cf6353710f6d98"
@@ -105,7 +108,7 @@
     "revision": "2efe37f92d2e6aeb25186e9da07455bb4a30163c"
   },
   "javascript": {
-    "revision": "c7dd61284a42399a1c986870afb38c9707dcbe96"
+    "revision": "fdeb68ac8d2bd5a78b943528bb68ceda3aade2eb"
   },
   "jsdoc": {
     "revision": "189a6a4829beb9cdbe837260653b4a3dfb0cc3db"
@@ -168,7 +171,7 @@
     "revision": "9a2ccff9f672f1f3d320cf925b8e5acc89b27055"
   },
   "r": {
-    "revision": "1b7f975854222812d87fd7b1610f9c2499b6fe69"
+    "revision": "007f7fc125ef7a07716c5162738ed2d5f92aa2a7"
   },
   "regex": {
     "revision": "7b97502cfc3ffa7110f6b68bb39fb259c9a0500c"
@@ -183,7 +186,7 @@
     "revision": "cc7bdd3e6d14677e8aa77da64f6a3f57b6f8b00a"
   },
   "scala": {
-    "revision": "449b6baa6b1cd0c2403636459af1571e075dbaa8"
+    "revision": "98f703493db8e81c0720f6c96d78e86c9d0e9b15"
   },
   "scss": {
     "revision": "9da7c979c010c350c28ad2235893103db4622c10"
@@ -213,13 +216,13 @@
     "revision": "8bd2056818b21860e3d756b5a58c4f6e05fb744e"
   },
   "tsx": {
-    "revision": "78f2f772ae0a65a2a94b781ca0d16abb94e0ecd1"
+    "revision": "d9c8be8e526455045d459bc73f5eff77b8048a54"
   },
   "turtle": {
     "revision": "085437f5cb117703b7f520dd92161140a684f092"
   },
   "typescript": {
-    "revision": "78f2f772ae0a65a2a94b781ca0d16abb94e0ecd1"
+    "revision": "d9c8be8e526455045d459bc73f5eff77b8048a54"
   },
   "verilog": {
     "revision": "8f6b1f357d1231c420404b5f7a368a73c25adfa2"
