@@ -69,6 +69,7 @@ function M.select_compiler_args(repo, compiler)
     local args = {
       "-o",
       "parser.so",
+      "-static-libstdc++"
       "-I./src",
       repo.files,
       "-shared",
