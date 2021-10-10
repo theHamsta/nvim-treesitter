@@ -56,6 +56,26 @@ jobs:
           name: parsers-${{ matrix.os }}-${{ matrix.cc }}-x86_64
           path: parser/*
 
+      - name: Prepare Release (Windows)
+        if: github.ref == 'refs/heads/master' && matrix.os == 'windows-latest'
+        run: |
+          powershell Compress-Archive parser parsers-${{ matrix.os }}-${{ matrix.cc }}-x86_64.zip
+
+      - name: Prepare Release
+        if: github.ref == 'refs/heads/master' && matrix.os != 'windows-latest'
+        run: |
+          zip parsers-${{ matrix.os }}-${{ matrix.cc }}-x86_64.zip parser/*
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: github.ref == 'refs/heads/master'
+        with:
+          name: Precompiled Parsers
+          target_commitish: master
+          tag_name: nightly-parsers
+          files: |
+            parsers-${{ matrix.os }}-${{ matrix.cc }}-x86_64.zip
+
       - name: Check query files (Unix)
         if: matrix.os != 'windows-latest'
         env:
