@@ -285,7 +285,7 @@ local function run_install(cache_folder, install_folder, lang, repo, with_sync, 
     )
   end
   if generate_from_grammar then
-    if repo.generate_requires_npm then
+    if repo.generate_requires_npm or repo.npm_scripts then
       if vim.fn.executable "npm" ~= 1 then
         api.nvim_err_writeln("`" .. lang .. "` requires NPM to be installed from grammar.js")
         return
@@ -301,6 +301,23 @@ local function run_install(cache_folder, install_folder, lang, repo, with_sync, 
           },
         },
       })
+      for _, cmd in ipairs(repo.npm_scripts or {}) do
+        vim.list_extend(command_list, {
+          {
+            cmd = "npm",
+            info = "Running `npm " .. cmd .. "`",
+            err = "Error during `npm "
+              .. cmd
+              .. "` (required for parser generation of "
+              .. lang
+              .. " with npm dependencies)",
+            opts = {
+              args = { "run", cmd },
+              cwd = compile_location,
+            },
+          },
+        })
+      end
     end
     vim.list_extend(command_list, {
       {

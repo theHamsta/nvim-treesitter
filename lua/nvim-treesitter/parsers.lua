@@ -770,11 +770,16 @@ list.http = {
     generate_requires_npm = true,
   },
   maintainers = { "@NTBBloodbath" },
+}
+
 list.prisma = {
   install_info = {
-    url = "https://github.com/elianiva/tree-sitter-prisma",
+    url = "https://github.com/LumaKernel/tree-sitter-prisma",
     branch = "master",
     files = { "src/parser.c" },
+    requires_generate_from_grammar = true,
+    generate_requires_npm = true,
+    npm_scripts = { "build" },
   },
   maintainers = { "@elianiva" },
 }
