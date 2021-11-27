@@ -24,7 +24,7 @@
     "revision": "5dd3c62f1bbe378b220fe16b317b85247898639e"
   },
   "commonlisp": {
-    "revision": "02e6ecbe05633bc9a82c2a56a86a1c2fcb3c4725"
+    "revision": "01c17ac04f65143d3ae5e93354d808db4c9eb0a2"
   },
   "cpp": {
     "revision": "e8dcc9d2b404c542fd236ea5f7208f90be8a6e89"
@@ -33,7 +33,7 @@
     "revision": "a03f1d2d1dfbf6f8e0fdca5f9ff030228241eb57"
   },
   "cuda": {
-    "revision": "274640841387e70c90ce2ff0f1b0d010d2aa8957"
+    "revision": "1c2dc8b66df5fc9a19c56bd7f1bb5d2364e475a5"
   },
   "d": {
     "revision": "c2fbf21bd3aa45495fe13247e040ad5815250032"
@@ -69,19 +69,19 @@
     "revision": "f0f2f100952a353e64e26b0fa710b4c296d7af13"
   },
   "gdscript": {
-    "revision": "59e7e41e186d3759592e9938291f69055200783f"
+    "revision": "eed1595d830407b49775aa33b871a9400e5a44e6"
   },
   "glimmer": {
-    "revision": "ac8b168bfded1fa2fb9f5f7ad3acdbd1118736ad"
+    "revision": "fd8fb1dbde54ed2767a17e22bcf7203961e4a0c8"
   },
   "glsl": {
-    "revision": "88408ffc5e27abcffced7010fc77396ae3636d7e"
+    "revision": "26ba31a3f5a85ebed5d71e49eef11a003bed782b"
   },
   "go": {
     "revision": "7f6bfd0161b2fe97f03564edad3287ebea0494a3"
   },
   "godotResource": {
-    "revision": "c611dd49e838efe25567dece14cf6353710f6d98"
+    "revision": "4ad1b796fb375c8e0fbf5b3cad57050b4372114f"
   },
   "gomod": {
     "revision": "2dfd6b7d3a4cfedc52e5eaa3cc497f419e628ebb"
@@ -183,7 +183,7 @@
     "revision": "a5514617ae3644effa80d4696be428e4a371c01a"
   },
   "ruby": {
-    "revision": "f1ff02772248786ed2ed08d827de2555912e777e"
+    "revision": "951799c6780deaabb0666b846cb7ad4eab627bbb"
   },
   "rust": {
     "revision": "cc7bdd3e6d14677e8aa77da64f6a3f57b6f8b00a"
@@ -198,7 +198,7 @@
     "revision": "05f949d3c1c15e3261473a244d3ce87777374dec"
   },
   "supercollider": {
-    "revision": "7621ddfef7df294e696584e8908a3444621f9fc7"
+    "revision": "d5e9ab2dc42285f15fc9699edbbea32e38c45c91"
   },
   "surface": {
     "revision": "21b7676859c1187645a27ff301f76738af5dfd44"
@@ -243,6 +243,6 @@
     "revision": "8e9d175982afcefa3dac8ca20d40d1643accd2bd"
   },
   "zig": {
-    "revision": "63e8a11f1858c7351a299223b231c8134ed61612"
+    "revision": "cf93353d5682c3e9d8112d448ff24d4de7b2304e"
   }
 }
