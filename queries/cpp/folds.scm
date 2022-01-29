@@ -11,4 +11,5 @@
  (try_statement)
  (catch_clause)
  (lambda_expression)
+ (concept_definition)
 ] @fold
