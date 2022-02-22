@@ -252,6 +252,7 @@ We are looking for maintainers to add more parsers and to write query files for 
 - [x] [verilog](https://github.com/tree-sitter/tree-sitter-verilog) (experimental, maintained by @zegervdv)
 - [x] [vim](https://github.com/vigoux/tree-sitter-viml) (maintained by @vigoux)
 - [x] [vue](https://github.com/ikatyang/tree-sitter-vue) (maintained by @WhyNotHugo)
+- [x] [vlang](https://github.com/vlang/vls) (maintained by @tami5)
 - [x] [yaml](https://github.com/ikatyang/tree-sitter-yaml) (maintained by @stsewd)
 - [x] [yang](https://github.com/Hubro/tree-sitter-yang) (maintained by @Hubro)
 - [x] [zig](https://github.com/maxxnino/tree-sitter-zig) (maintained by @maxxnino)
@@ -386,7 +387,7 @@ in the `install_info` table for you parser config.
 Queries are what `nvim-treesitter` uses to extract information from the syntax tree;
 they are located in the `queries/{language}/*` runtime directories (see `:h rtp`),
 like the `queries` folder of this plugin, e.g. `queries/{language}/{locals,highlights,textobjects}.scm`.
-Other modules may require additional queries such as `folding.scm`. You can find a 
+Other modules may require additional queries such as `folding.scm`. You can find a
 list of all supported capture names in [CONTRIBUTING.md](https://github.com/nvim-treesitter/nvim-treesitter/blob/master/CONTRIBUTING.md#parser-configurations).
 
 All queries found in the runtime directories will be combined.
