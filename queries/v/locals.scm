@@ -19,7 +19,7 @@
 
 ((call_expression
    function: (selector_expression
-                field: (identifier) @function))
+                field: (identifier) @definition.function))
  (#set! reference.kind "call"))
 
 (source_file) @scope
