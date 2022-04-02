@@ -24,6 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - run: echo "working dir is $(pwd)"
     - name: Lint with stylua
       uses: JohnnyMorganz/stylua-action@1.0.0
       with:
