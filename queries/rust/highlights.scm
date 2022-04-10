@@ -121,8 +121,9 @@
 (macro_definition "macro_rules!" @function.macro)
 
 ;; Attribute macros
-(attribute_item (meta_item (identifier) @function.macro))
-(meta_item (scoped_identifier (identifier) @function.macro .))
+(((attribute_item) @function.macro.attribute_item) (#set! priority 105))
+(attribute_item (meta_item (identifier) @function.macro.attribute_item))
+(meta_item (scoped_identifier (identifier) @function.macro.attribute_item .))
 
 ;; Derive macros (assume all arguments are types)
 (meta_item
@@ -267,7 +268,7 @@
 
 ["," "." ":" "::" ";"] @punctuation.delimiter
 
-(attribute_item "#" @punctuation.special)
+((attribute_item ["#" "[" "]"] @punctuation.special.attribute_item))
 (inner_attribute_item ["!" "#"] @punctuation.special)
 (macro_invocation "!" @function.macro)
 (empty_type "!" @type.builtin)
