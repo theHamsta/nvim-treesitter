@@ -1,5 +1,8 @@
 (macro_invocation
-  (token_tree) @rust)
+  macro: ((identifier) @macro-name)
+  (token_tree
+    (_)* @macro-args)
+  (#macro-injection! @macro-name @macro-args "rust"))
 
 (macro_definition
   (macro_rule
@@ -10,14 +13,6 @@
   (line_comment)
   (block_comment)
 ] @comment
-
-(
-  (macro_invocation
-    macro: ((identifier) @_html_def)
-    (token_tree) @html)
-
-    (#eq? @_html_def "html")
-)
 
 (call_expression
   function: (scoped_identifier

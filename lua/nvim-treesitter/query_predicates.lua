@@ -129,6 +129,27 @@ query.add_directive("downcase!", function(match, _, bufnr, pred, metadata)
   end
 end)
 
+query.add_directive("macro-injection!", function(match, _, bufnr, pred, metadata)
+  local injection_config = require'nvim-treesitter.configs'.get_module('injections')
+  local lang = require'nvim-treesitter.parsers'.get_buf_lang(bufnr)
+  injection_config = lang and injection_config[lang]
+
+  local language, macro_name
+  -- (#macro-injection! @macro-name "default")
+  if #pred == 2 then
+    macro_name = pred[2]
+  end
+  if #pred == 3 then
+    language = pred[3]
+  end
+
+  if injection_config and injection_config[macro_name] then
+    language = injection_config[macro_name]
+  end
+
+  metadata.language = language
+end)
+
 query.add_directive("exclude_children!", function(match, _pattern, _bufnr, pred, metadata)
   local capture_id = pred[2]
   local node = match[capture_id]

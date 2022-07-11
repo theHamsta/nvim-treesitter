@@ -33,6 +33,15 @@ local builtin_modules = {
     end,
     additional_vim_regex_highlighting = false,
   },
+  injections = {
+    module_path = "nvim-treesitter.injections",
+    macro_injections = {
+      rust = {
+        html = {"html"},
+        query_as = {"rust", "sql"},
+      }
+    },
+  },
   incremental_selection = {
     module_path = "nvim-treesitter.incremental_selection",
     enable = false,
