@@ -283,6 +283,15 @@ list.bash = {
   maintainers = { "@TravonteD" },
 }
 
+list.nu = {
+  install_info = {
+    url = "https://github.com/LhKipp/tree-sitter-nu",
+    files = { "src/parser.c", "src/scanner.c" },
+    branch = "main",
+  },
+  maintainers = { "@theHamsta" },
+}
+
 list.fish = {
   install_info = {
     url = "https://github.com/ram02z/tree-sitter-fish",
