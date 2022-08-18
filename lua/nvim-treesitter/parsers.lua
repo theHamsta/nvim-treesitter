@@ -1166,6 +1166,16 @@ list.gitignore = {
   maintainers = { "@theHamsta" },
 }
 
+list.nim = {
+  install_info = {
+    url = "https://github.com/haxscramper/tree-sitter-nim",
+    files = { "src/parser.c", "src/scanner.c" },
+    requires_generate_from_grammar = true,
+  },
+  maintainers = { "@theHamsta" },
+}
+
+
 local M = {
   list = list,
   filetype_to_parsername = filetype_to_parsername,
