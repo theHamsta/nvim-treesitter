@@ -12,7 +12,7 @@ local M = {}
 local lockfile = {}
 
 M.compilers = { vim.fn.getenv "CC", "cc", "gcc", "clang", "cl", "zig" }
-M.prefer_git = fn.has "win32" == 1
+M.prefer_git = false
 M.command_extra_args = {}
 M.ts_generate_args = nil
 
