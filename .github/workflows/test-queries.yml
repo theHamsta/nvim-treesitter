@@ -83,8 +83,13 @@ jobs:
         if: matrix.os == 'windows-2022'
         run: cp -r ~/AppData/Local/nvim/pack/nvim-treesitter/start/nvim-treesitter/parser/* parser
 
+      - name: Check query files
+        run: $NVIM --headless -c "luafile ./scripts/check-queries.lua" -c "q"
+
+      - name: Rename artifacts
+        run: cd parser && for filename in *.so; do mv "$filename" "${{ matrix.os }}_${{ matrix.cc }}_${filename}"; done;
+
       - uses: "marvinpinto/action-automatic-releases@latest"
-        if: matrix.os == 'windows-2022' && matrix.cc == 'cl'
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "latest"
@@ -92,6 +97,3 @@ jobs:
           title: "Parser artifacts"
           files: |
             ./parser/*.so
-
-      - name: Check query files
-        run: $NVIM --headless -c "luafile ./scripts/check-queries.lua" -c "q"
