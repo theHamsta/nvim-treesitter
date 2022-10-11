@@ -86,13 +86,10 @@ jobs:
       - name: Check query files
         run: $NVIM --headless -c "luafile ./scripts/check-queries.lua" -c "q"
 
-      - name: Rename artifacts
-        run: cd parser && for filename in *.so; do mv "$filename" "${{ matrix.os }}_${{ matrix.cc }}_${filename}"; done;
-
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "latest"
+          automatic_release_tag: "latest-${{ matrix.os }}-${{ matrix.cc }}"
           prerelease: true
           title: "Parser artifacts"
           files: |
