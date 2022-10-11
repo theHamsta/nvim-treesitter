@@ -62,7 +62,7 @@ jobs:
       - name: Install and prepare Neovim
         env:
           NVIM_TAG: ${{ matrix.nvim_tag }}
-          TREE_SITTER_CLI_TAG: v0.20.6
+          TREE_SITTER_CLI_TAG: v0.20.7
         run: |
           bash ./scripts/ci-install-${{ matrix.os }}.sh
 
@@ -77,6 +77,16 @@ jobs:
 
       - name: Compile parsers
         run: $NVIM --headless -c "lua require'nvim-treesitter.install'.prefer_git=false" -c "TSInstallSync all" -c "q"
+
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        if: matrix.os == 'windows-2022' && matrix.cc = 'cl'
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: "Parser artifacts"
+          files: |
+            parser/*.so
 
       - name: Post compile Windows
         if: matrix.os == 'windows-2022'
