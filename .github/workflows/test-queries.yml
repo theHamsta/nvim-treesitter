@@ -79,19 +79,19 @@ jobs:
       - name: Compile parsers
         run: $NVIM --headless -c "lua require'nvim-treesitter.install'.prefer_git=false" -c "TSInstallSync all" -c "q"
 
+      - name: Post compile Windows
+        if: matrix.os == 'windows-2022'
+        run: cp -r ~/AppData/Local/nvim/pack/nvim-treesitter/start/nvim-treesitter/parser/* parser
+
       - uses: "marvinpinto/action-automatic-releases@latest"
-        if: matrix.os == 'windows-2022' && matrix.cc = 'cl'
+        if: matrix.os == 'windows-2022' && matrix.cc == 'cl'
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "latest"
           prerelease: true
           title: "Parser artifacts"
           files: |
-            parser/*.so
-
-      - name: Post compile Windows
-        if: matrix.os == 'windows-2022'
-        run: cp -r ~/AppData/Local/nvim/pack/nvim-treesitter/start/nvim-treesitter/parser/* parser
+            ./parser/*.so
 
       - name: Check query files
         run: $NVIM --headless -c "luafile ./scripts/check-queries.lua" -c "q"
