@@ -634,6 +634,13 @@ M.commands = {
       "-complete=custom,nvim_treesitter#installed_parsers",
     },
   },
+  TSUpdateBinary = {
+    run = M.update { binary = true },
+    args = {
+      "-nargs=*",
+      "-complete=custom,nvim_treesitter#installed_parsers",
+    },
+  },
   TSUpdateSync = {
     run = M.update { with_sync = true },
     args = {
