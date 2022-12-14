@@ -44,14 +44,16 @@ jobs:
           git config user.name "GitHub"
           git config user.email "noreply@github.com"
           git add lockfile.json
-          git commit -m "Update lockfile.json" || echo 'No commit necessary!'
+          cp lockfile.json /tmp/old_lockfile.json
+          UPDATED_PARSERS=$(echo $(jd -set /tmp/old_lockfile.json lockfile.json | grep @ | sed 's/","revision"\]//' |  sed 's/@ \["//') | sed 's/ /, /g')
+          echo "UPDATED_PARSERS=$UPDATED_PARSERS" >> $GITHUB_ENV
+          git commit -m "Update parsers: $UPDATED_PARSERS" || echo 'No commit necessary!'
           git clean -xf
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
-          commit-message: Update lockfile.json
-          title: Update lockfile.json
+          title: "Update lockfile.json: ${{ env.UPDATED_PARSERS }}"
           branch: update-lockfile-pr
           base: ${{ github.head_ref }}
           draft: true
