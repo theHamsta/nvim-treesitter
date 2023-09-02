@@ -1495,6 +1495,14 @@ list.scss = {
   maintainers = { "@elianiva" },
 }
 
+list.sdp = {
+  install_info = {
+    url = "https://github.com/theHamsta/tree-sitter-sdp",
+    files = { "src/parser.c" },
+  },
+  maintainers = { "@theHamsta" },
+}
+
 list.slint = {
   install_info = {
     url = "https://github.com/jrmoulton/tree-sitter-slint",
